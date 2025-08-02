@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, Users, BarChart3, CheckSquare, AlertTriangle, TrendingUp } from 'lucide-react';
+import { ArrowLeft, Users, BarChart3, CheckSquare, AlertTriangle, TrendingUp, MessageSquare } from 'lucide-react';
 
 // Import smaller components
 import MyAssignedTasks from './AgentControl/MyAssignedTasks';
@@ -72,13 +72,23 @@ function AgentControlRefactored({ setActiveSection }) {
       <div className="p-6">
         <div className="bg-gray-900 rounded-lg p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold">Enhanced AI Agent Ecosystem</h2>
-            <span className="px-3 py-1 bg-blue-500 text-white text-sm rounded-full flex items-center gap-1">
-              <Users className="w-3 h-3" />
-              Engineer Access
-            </span>
+            <div>
+              <h2 className="text-xl font-semibold">Enhanced AI Agent Ecosystem</h2>
+              <p className="text-gray-400 mt-1">Advanced multi-agent testing team with 12 accessible agents and 4 assigned tasks</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="px-3 py-1 bg-blue-500 text-white text-sm rounded-full flex items-center gap-1">
+                <Users className="w-3 h-3" />
+                Engineer Access
+              </span>
+              <button className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white text-sm rounded-lg transition-colors flex items-center gap-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                </svg>
+                Testing Features
+              </button>
+            </div>
           </div>
-          <p className="text-gray-400">Advanced multi-agent testing team with 12 accessible agents and 4 assigned tasks</p>
         </div>
 
         {/* Main Navigation Tabs */}
@@ -106,12 +116,9 @@ function AgentControlRefactored({ setActiveSection }) {
             <span>Performance</span>
           </button>
           <button 
-            onClick={() => setActiveTab('tasks')}
-            className={`flex items-center gap-2 pb-3 border-b-2 transition-colors ${
-              activeTab === 'tasks' 
-                ? 'text-blue-400 border-blue-400' 
-                : 'text-gray-400 border-transparent hover:text-white'
-            }`}
+            onClick={() => {}} 
+            disabled
+            className="flex items-center gap-2 pb-3 border-b-2 text-gray-600 border-transparent cursor-not-allowed opacity-50"
           >
             <CheckSquare className="w-4 h-4" />
             <span>My Tasks</span>
@@ -172,6 +179,88 @@ function AgentControlRefactored({ setActiveSection }) {
 
         {activeTab === 'tasks' && (
           <TaskOverview tasks={tasks} />
+        )}
+
+        {activeTab === 'exceptions' && (
+          <div className="space-y-6">
+            {/* Exception Notifications Header */}
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-semibold">Exception Notifications</h3>
+              <div className="flex gap-4">
+                <button className="px-4 py-2 bg-gray-800 text-white rounded-lg text-sm hover:bg-gray-700 transition-colors">
+                  All (4)
+                </button>
+                <button className="px-4 py-2 bg-transparent text-gray-400 rounded-lg text-sm hover:bg-gray-800 hover:text-white transition-colors">
+                  Agent Issues (1)
+                </button>
+                <button className="px-4 py-2 bg-transparent text-gray-400 rounded-lg text-sm hover:bg-gray-800 hover:text-white transition-colors">
+                  Test Failures (1)
+                </button>
+              </div>
+            </div>
+
+            {/* Critical Test Failure Card */}
+            <div className="bg-gray-900 rounded-lg p-6 border border-gray-800">
+              <div className="flex items-start gap-4">
+                {/* Error Icon */}
+                <div className="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                  <AlertTriangle className="w-5 h-5 text-red-500" />
+                </div>
+
+                {/* Content */}
+                <div className="flex-1">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <h4 className="text-lg font-medium text-white">Critical Test Failure</h4>
+                      <div className="flex items-center gap-2">
+                        <span className="px-2 py-1 bg-gray-800 text-gray-300 text-xs rounded">test failure</span>
+                        <span className="px-2 py-1 bg-red-500 text-white text-xs rounded">critical</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 text-sm">
+                      <span className="text-gray-400">8/2/2025, 9:23:18 AM</span>
+                      <span className="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded">Unacknowledged</span>
+                    </div>
+                  </div>
+
+                  <p className="text-red-400 mb-4">
+                    Payment gateway integration tests are failing with 80% failure rate in production-like environment
+                  </p>
+
+                  <div className="grid grid-cols-3 gap-6 mb-4 text-sm">
+                    <div>
+                      <span className="text-gray-400">Agent:</span>
+                      <p className="text-red-400 font-medium">Test Execution Agent</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-400">Task:</span>
+                      <p className="text-red-400 font-medium">task-001</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-400">Assigned To:</span>
+                      <p className="text-yellow-400 font-medium">sarah-chen</p>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-3">
+                    <button className="flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg text-sm transition-colors">
+                      <CheckSquare className="w-4 h-4" />
+                      Acknowledge
+                    </button>
+                    <button className="flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg text-sm transition-colors">
+                      <ArrowLeft className="w-4 h-4 rotate-180" />
+                      Take Action
+                    </button>
+                    <button className="flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg text-sm transition-colors">
+                      <MessageSquare className="w-4 h-4" />
+                      Chat with Agent
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>
